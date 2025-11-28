@@ -1,0 +1,9 @@
+El archivo de texto aparecerá con la siguiente sintaxis:
+
+    tipo nombre nodo1 nodo2 magnitud&prefijo
+        - tipo: V, R o I
+        - nombre: string
+        - nodo 1 y 2: int
+        - magnitud: float
+        - prefijo: M k m μ
+

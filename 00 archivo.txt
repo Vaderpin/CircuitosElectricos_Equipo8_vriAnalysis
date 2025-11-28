@@ -1,0 +1,20 @@
+# Fuentes de Voltaje
+V V1 1 0 5k
+V V2 2 0 12
+V V3 3 1 9M
+V V4 4 2 3m
+V V5 5 3 1.5k
+
+# Resistencias
+R R1 1 2 4.7k
+R R2 2 3 10M
+R R3 3 4 220
+R R4 4 5 330m
+R R5 5 0 1.2k
+
+# Fuentes de Corriente
+I I1 1 0 2m
+I I2 2 1 500u
+I I3 3 0 1.5k
+I I4 4 3 20m
+I I5 5 4 3M
