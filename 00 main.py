@@ -52,7 +52,7 @@ def imprimirComponentes(componentes):
 
 if __name__ == "__main__" :
     while (True):
-        clear()
+        clear() # Mostrar: inicio
         print("")
         print("██  ██  █████▄   ████")
         print("██▄▄██  ██▄▄██▄   ██ ")             
@@ -63,19 +63,21 @@ if __name__ == "__main__" :
         print("")
         archivo=input(">   Nombre del archivo (escriba \"salir\" para cerrar el programa): ")
         if (archivo=="salir"): break
-        banner=0
-        clear()
+
         try:
             circuito=cargarArchivo(archivo)
             banner=1
         except Exception as e:
+            clear() # Mostrar: error
             print("Ocurrió un error, revise el archivo, introduzca enter para continuar o ! si requiere ver más info")
             opc=input()
             if (opc=='!'): print(e)
-        if (banner==1):
-            banner=0
-            imprimirComponentes(circuito)
+            continue
+
+        clear() # Mostrar: circuito
+        imprimirComponentes(circuito)
+        
         ok=input()
         
-    clear()
+    clear() # Mostrar: despedida
     print("Gracias por usar el programa\n")
