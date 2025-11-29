@@ -68,7 +68,6 @@ if __name__ == "__main__" :
 
         try:
             circuito=cargarArchivo(archivo)
-            banner=1
         except Exception as e:
             clear() # Mostrar: error
             print("Ocurrió un error, revise el archivo, introduzca enter para continuar o ! si requiere ver más info")
