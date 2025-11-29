@@ -3,7 +3,6 @@
     así como el "main" del programa
 """
 
-import time
 import os
 import componentes as c
 
@@ -15,7 +14,8 @@ PREFIJOS = {
     'M': 1000000,   
     'k': 1000,      
     'm': 1/1000,    
-    'u': 1/1000000  
+    'u': 1/1000000,
+    'μ': 1/1000000
 }
 
 #para convertir mili/kilo/... ohms/voltios/amperes a ohms/voltios/amperes
@@ -38,9 +38,11 @@ def cargarArchivo(archivo):
                 continue
             info=line.split() #especificar en el argumento si se usara un separador diferente
             info[4]=convertirUnidades(info[4])
-            if (info[0]=="V"): elemento=c.ftVoltaje(*info[1:5])
-            if (info[0]=="R"): elemento=c.Resistencia(*info[1:5])
-            if (info[0]=="I"): elemento=c.ftCorriente(*info[1:5])
+            match info[0]:
+                case "V": elemento=c.ftVoltaje(*info[1:5])
+                case "R": elemento=c.Resistencia(*info[1:5])
+                case "I": elemento=c.ftCorriente(*info[1:5])
+                case _: raise TypeError("tipo inválido ", info[0], ", existentes: V, R, I")
             componentes.append(elemento)
     return componentes
 
@@ -61,9 +63,18 @@ if __name__ == "__main__" :
         print("")
         archivo=input(">   Nombre del archivo (escriba \"salir\" para cerrar el programa): ")
         if (archivo=="salir"): break
+        banner=0
         clear()
-        circuito=cargarArchivo(archivo)
-        imprimirComponentes(circuito)
+        try:
+            circuito=cargarArchivo(archivo)
+            banner=1
+        except Exception as e:
+            print("Ocurrió un error, revise el archivo, introduzca enter para continuar o ! si requiere ver más info")
+            opc=input()
+            if (opc=='!'): print(e)
+        if (banner==1):
+            banner=0
+            imprimirComponentes(circuito)
         ok=input()
         
     clear()

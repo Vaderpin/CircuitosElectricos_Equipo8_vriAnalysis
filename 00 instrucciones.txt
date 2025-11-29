@@ -5,5 +5,5 @@ El archivo de texto aparecerá con la siguiente sintaxis:
         - nombre: string
         - nodo 1 y 2: int
         - magnitud: float
-        - prefijo: M k m μ
+        - prefijo: M k m μ/u
 
