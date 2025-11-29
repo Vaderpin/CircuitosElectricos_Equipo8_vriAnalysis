@@ -37,6 +37,8 @@ def cargarArchivo(archivo):
             if not line or line.startswith(("#","/","\\")): #ignora comentarios y saltos en blanco
                 continue
             info=line.split() #especificar en el argumento si se usara un separador diferente
+            info[2]=int(info[2])
+            info[3]=int(info[3])
             info[4]=convertirUnidades(info[4])
             match info[0]:
                 case "V": elemento=c.ftVoltaje(*info[1:5])
@@ -71,7 +73,9 @@ if __name__ == "__main__" :
             clear() # Mostrar: error
             print("Ocurrió un error, revise el archivo, introduzca enter para continuar o ! si requiere ver más info")
             opc=input()
-            if (opc=='!'): print(e)
+            if (opc=='!'): 
+                print(e)
+                ok=input()
             continue
 
         clear() # Mostrar: circuito
