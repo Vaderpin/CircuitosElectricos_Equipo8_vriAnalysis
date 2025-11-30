@@ -1,59 +1,55 @@
-class Resistencia:
+class Componente:
+    TIPO = "???"
+    UNIDAD = "unidades"
 
-    def __init__(self, nombre:str, nodo1:int, nodo2:int, valor:float):
-
-        if not (
-                isinstance(nombre, str) and 
-                isinstance(nodo1, int) and 
-                isinstance(nodo2, int) and 
-                isinstance(valor, (int, float))
-            ):
-            raise TypeError("Serie inválida para Resistencia ", nombre, ": (", nodo1, " - ", valor, " ohmios - ", nodo2, ")")
-
-        self.nombre = nombre
-        self.nodo1  = nodo1
-        self.nodo2  = nodo2
-        self.valor  = float(valor)
-
-    def myPrint(self):
-        print("Resistencia ", self.nombre, ": (", self.nodo1, " - ", self.valor, " ohmios - ", self.nodo2, ")")
-
-class ftVoltaje:
-    
-    def __init__(self, nombre:str, nodo1:int, nodo2:int, valor:float):
-
-        if not (
-                isinstance(nombre, str) and 
-                isinstance(nodo1, int) and 
-                isinstance(nodo2, int) and 
-                isinstance(valor, (int, float))
-            ):
-            raise TypeError("Serie inválida para Voltaje ", nombre, ": (", nodo1, " - ", valor, " voltios - ", nodo2, ")")
+    def __init__(self, nombre, nodo1, nodo2, valor: float):
+        if not isinstance(valor, (int, float)):
+            raise TypeError(
+                f"Magnitud inválida para {self.TIPO} {nombre}: "
+                f"({nodo1} - {valor} {self.UNIDAD} - {nodo2})"
+            )
 
         self.nombre = nombre
-        self.nodo1  = nodo1
-        self.nodo2  = nodo2
-        self.valor  = float(valor)
-    
-    def myPrint(self):
-        print("Voltaje     ", self.nombre, ": (", self.nodo1, " - ", self.valor, " voltios - ", self.nodo2, ")")
+        self.nodo1 = nodo1
+        self.nodo2 = nodo2
+        self.valor = float(valor)
 
-class ftCorriente:
-    
-    def __init__(self, nombre:str, nodo1:int, nodo2:int, valor:float):
-        
-        if not (
-                isinstance(nombre, str) and 
-                isinstance(nodo1, int) and 
-                isinstance(nodo2, int) and 
-                isinstance(valor, (int, float))
-            ):
-            raise TypeError("Serie inválida para Corriente ", nombre, ": (", nodo1, " - ", valor, " amperios - ", nodo2, ")")
-
-        self.nombre = nombre
-        self.nodo1  = nodo1
-        self.nodo2  = nodo2
-        self.valor  = float(valor)
+        try:
+            self.nodo1=float(self.nodo1)
+            self.nodo2=float(self.nodo2)
+        except Exception:
+            pass
 
     def myPrint(self):
-        print("Corriente   ", self.nombre, ": (", self.nodo1, " - ", self.valor, " amperios - ", self.nodo2, ")")
+        print(
+            f"{self.TIPO:<12} {self.nombre}: "
+            f"({self.nodo1} - {self.valor} {self.UNIDAD} - {self.nodo2})"
+        )
+
+
+class Resistencia(Componente):
+    TIPO = "Resistencia"
+    UNIDAD = "ohmios"
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.r=self.valor
+        self.i=0
+        self.v=0
+
+class ftVoltaje(Componente):
+    TIPO = "Voltaje"
+    UNIDAD = "voltios"
+
+    def __init__(self, *args):
+        super().__init__(*args)
+        self.i=0
+        self.v=self.valor
+
+
+class ftCorriente(Componente):
+    TIPO = "Corriente"
+    UNIDAD = "amperios"
+
+    def __init__(self, *args):
+        self.i=0
